@@ -10,5 +10,40 @@ class DFS(SearchAlgorithm):
     """
 
     def solve(self, problem) -> list:
-        raise Exception("To be implemented")
+        # Create an empty stack for DFS
+        stack = LifoQueue()
+
+        # Create a set to store visited nodes
+        visited = set()
+
+        # Create a root node for the search tree
+        root = Node(problem.get_initial_state())
+
+        # Push the root node onto the stack
+        stack.put(root)
+
+        while not stack.empty():
+            # Pop the next node off the stack
+            current_node = stack.get()
+
+            # Check if the current node is a goal state
+            if problem.is_goal_state(current_node.state):
+                # If it is, return the solution path
+                return current_node.get_solution_path()
+
+            # Add the current node to the set of visited nodes
+            visited.add(current_node.state)
+
+            # Expand the current node
+            child_states = problem.get_successor_states(current_node.state)
+            for child_state in child_states:
+                if child_state not in visited:
+                    # Create a child node for the current node
+                    child_node = Node(child_state, current_node)
+
+                    # Push the child node onto the stack
+                    stack.put(child_node)
+
+        # If the stack is empty and no goal state was found, return None
+        return None
 
