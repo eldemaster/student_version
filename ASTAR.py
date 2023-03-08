@@ -43,7 +43,3 @@ class AStar(SearchAlgorithm):
                     frontier.put(new_node)
                     
         return None
-
-
-
-
