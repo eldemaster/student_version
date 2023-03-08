@@ -11,7 +11,7 @@ class BrFS(SearchAlgorithm):
     def solve(self, problem) -> list:
         frontier = Queue()
         explored = set()
-        start_node = Node(problem.get_initial_state())
+        start_node = Node(problem.__init__())
         frontier.put(start_node)
         
         while not frontier.empty():

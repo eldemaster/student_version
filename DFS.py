@@ -17,7 +17,7 @@ class DFS(SearchAlgorithm):
         visited = set()
 
         # Create a root node for the search tree
-        root = Node(problem.get_initial_state())
+        root = Node(problem.init)
 
         # Push the root node onto the stack
         stack.put(root)
@@ -27,15 +27,15 @@ class DFS(SearchAlgorithm):
             current_node = stack.get()
 
             # Check if the current node is a goal state
-            if problem.is_goal_state(current_node.state):
+            if problem.isGoal(current_node.state):
                 # If it is, return the solution path
-                return current_node.get_solution_path()
+                return current_node.extract_solution()
 
             # Add the current node to the set of visited nodes
             visited.add(current_node.state)
 
             # Expand the current node
-            child_states = problem.get_successor_states(current_node.state)
+            child_states = problem.getSuccessors(current_node.state)
             for child_state in child_states:
                 if child_state not in visited:
                     # Create a child node for the current node

@@ -24,7 +24,7 @@ class AStar(SearchAlgorithm):
     def solve(self, problem) -> list:
         frontier = PriorityQueue()
         explored = set()
-        start_node = AstarNode(problem.get_initial_state(), None, None, 0, self.heuristic(problem.get_initial_state(), problem.goal_state))
+        start_node = AstarNode(problem.__init__(), None, None, 0, self.heuristic(problem.__init__(), problem.isGoal))
         frontier.put(start_node)
         
         while not frontier.empty():
