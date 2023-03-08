@@ -22,4 +22,28 @@ class AStar(SearchAlgorithm):
         super().__init__(view)
 
     def solve(self, problem) -> list:
-        raise Exception("To be implemented")
+        frontier = PriorityQueue()
+        explored = set()
+        start_node = AstarNode(problem.get_initial_state(), None, None, 0, self.heuristic(problem.get_initial_state(), problem.goal_state))
+        frontier.put(start_node)
+        
+        while not frontier.empty():
+            node = frontier.get()
+            
+            if problem.goal_test(node.state):
+                return self.trace_path(node)
+            
+            explored.add(node.state)
+            
+            for action, state, cost in problem.get_successors(node.state):
+                if state not in explored:
+                    new_g = node.g + cost
+                    new_h = self.heuristic(state, problem.goal_state)
+                    new_node = AstarNode(state, node, action, new_g, new_h)
+                    frontier.put(new_node)
+                    
+        return None
+
+
+
+
